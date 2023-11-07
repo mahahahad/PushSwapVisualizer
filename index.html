@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html dir="ltr" lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="color-scheme" content="dark light" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap" rel="stylesheet">
+		<title>PushSwap Visualizer</title>
+	</head>
+	<body>
+		<div class="stack-wrapper">
+			<p class="overline">Stack A</p>		
+			<div class="stack--contents" id="stackAContents" ></div>
+			<p class="overline">Stack B</p>
+			<div class="stack--contents" id="stackBContents" ></div>
+		</div>
+		<div class="stack-options-wrapper">
+			<div class="moves-wrapper">
+				<h2 class="overline">Moves</h2>
+				<p class="moves">0</p>
+			</div>
+			<div class="new-values-wrapper">
+				<div class="input-wrapper">
+					<label for="stackAValues">Stack A Values</label>
+					<input type="text" id="stackAValues" placeholder="1, 2, 5, 0" />
+				</div>
+				<button class="btn" id="replaceStackAValues" >Replace</button>
+			</div>
+		</div>
+		<div class="operation-wrapper">
+			<button class="btn btn--operation" id="swapABtn" >sa</button>
+			<button class="btn btn--operation" id="swapBBtn" >sb</button>
+			<button class="btn btn--operation" id="swapBothBtn" >ss</button>
+			<button class="btn btn--operation" id="pushABtn" >pa</button>
+			<button class="btn btn--operation" id="pushBBtn" >pb</button>
+			<button class="btn btn--operation" id="rotateABtn" >ra</button>
+			<button class="btn btn--operation" id="rotateBBtn" >rb</button>
+			<button class="btn btn--operation" id="rotateBothBtn" >rr</button>
+			<button class="btn btn--operation" id="reverseRotateABtn" >rra</button>
+			<button class="btn btn--operation" id="reverseRotateBBtn" >rrb</button>
+			<button class="btn btn--operation" id="reverseRotateBothBtn" >rrr</button>
+		</div>
+	</body>
+	<script src="index.js"></script>
+</html>

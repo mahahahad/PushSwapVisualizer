@@ -1,0 +1,87 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Gothic A1", sans-serif;
+}
+
+.btn {
+	cursor: pointer;
+	padding: 1rem 2rem;
+	font: inherit;
+	background-color: transparent;
+	border: 1px solid currentColor;
+	border-radius: 4px;
+	transition: background-color 250ms ease;
+}
+
+.btn--operation {
+	text-transform: uppercase;
+	flex-grow: 1;
+}
+
+.btn:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.stack-options-wrapper {
+	flex-grow: 0;
+}
+
+.operation-wrapper {
+	display: flex;
+	gap: .5rem;
+	flex-grow: 2;
+}
+
+body {
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	height: 100vh;
+	padding: 2.5rem;
+}
+
+.overline {
+	font-size: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	font-weight: bold;
+}
+
+.moves {
+	font-size: 2rem;
+}
+
+.stack-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	flex-grow: 1;
+}
+
+.stack--contents {
+	border-radius: 8px;
+	border: 1px solid currentColor;
+	width: 100%;
+	margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	padding: 1rem;
+	gap: 1rem;
+}
+
+.node {
+	border: 1px solid currentColor;
+	border-radius: 4px;
+	padding: 1rem;
+	height: 100%;
+	aspect-ratio: 1/1;
+	font-size: 3rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+}
+
