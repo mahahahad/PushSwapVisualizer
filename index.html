@@ -2,46 +2,113 @@
 <html dir="ltr" lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="color-scheme" content="dark light" />
 		<link rel="stylesheet" href="style.css" />
+		<meta name="color-scheme" content="dark light" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap" rel="stylesheet">
+		<link rel="favicon" href="favicon.ico" />
 		<title>PushSwap Visualizer</title>
 	</head>
 	<body>
-		<div class="stack-wrapper">
-			<p class="overline">Stack A</p>		
-			<div class="stack--contents" id="stackAContents" ></div>
-			<p class="overline">Stack B</p>
-			<div class="stack--contents" id="stackBContents" ></div>
-		</div>
-		<div class="stack-options-wrapper">
-			<div class="moves-wrapper">
-				<h2 class="overline">Moves</h2>
-				<p class="moves">0</p>
-			</div>
-			<div class="new-values-wrapper">
-				<div class="input-wrapper">
-					<label for="stackAValues">Stack A Values</label>
-					<input type="text" id="stackAValues" placeholder="1, 2, 5, 0" />
+		<div class="overlay hidden update-stack-wrapper">
+			<form class="dialog" onsubmit="return false">
+				<header class="dialog__header">
+					<h1>Update Stack Values</h1>
+					<img src="CloseIcon.svg" id="closeOverlayIcon" title="Close this dialog" />
+				</header>
+				<div class="dialog__content">
+					<div class="input-wrapper">
+						<label for="stackSelect">Stack</label>
+						<select id="stackSelect" name="stackSelect">
+							<option value='A' >A</option>
+							<option value='B' >B</option>
+						</select>
+					</div>
+					<div class="manual-value-entry-wrapper wrapper">
+						<p class="overline">Manual</p>
+						<div class="values-block-wrapper">
+							<div class="value-input-wrapper input-wrapper">
+								<label for="valuesInput">Values</label>
+								<input type="text" placeholder="1, 2, 3, 0" id="valuesInput" />
+							</div>
+							<div class="append-checkbox-wrapper">
+								<input type="checkbox" id="appendValuesCheckbox" name="appendValuesCheckbox" />
+								<label for="appendValuesCheckbox">Append</label>
+							</div>
+						</div>
+						<div class="error-wrapper">
+							<img src="InfoIcon.svg" />
+							<p>Please enter comma separated values</p>
+						</div>
+					</div>
+					<div class="generate-values-wrapper wrapper wrapper--unselected">
+						<p class="overline">Generate</p>
+						<div class="values-block-wrapper">
+							<div class="input-wrapper">
+								<label for="countInput">Count</label>
+								<input type="number" id="countInput" min="0" placeholder="5" maxlength="2" />
+							</div>
+							<div class="input-wrapper">
+								<label for="minInput">Min</label>
+								<input type="number" id="minInput" placeholder="-2" />
+							</div>
+							<div class="input-wrapper">
+								<label for="maxInput">Max</label>
+								<input type="number" id="maxInput" placeholder="15" />
+							</div>
+						</div>
+						<div class="error-wrapper">
+							<img src="InfoIcon.svg" />
+							<p>Do you know how many integers are between your min and max?</p>
+						</div>
+					</div>
 				</div>
-				<button class="btn" id="replaceStackAValues" >Replace</button>
+				<footer class="dialog__footer">
+					<button class="btn" id="saveStackBtn" type="submit">Save</button>
+				</footer>
+			</form>
+		</div>
+		<section class="sidebar">
+			<img src="AddIcon.svg" id="addIcon" title="Add or update stack values" />
+			<img src="Logo.svg" title="Learn more about this project" />
+		</section>
+		<main>
+			<div class="stack-wrapper">
+				<p class="overline">Stack A</p>		
+				<div class="stack--contents" id="stackAContents" ></div>
+				<p class="overline">Stack B</p>
+				<div class="stack--contents" id="stackBContents" ></div>
 			</div>
-		</div>
-		<div class="operation-wrapper">
-			<button class="btn btn--operation" id="swapABtn" >sa</button>
-			<button class="btn btn--operation" id="swapBBtn" >sb</button>
-			<button class="btn btn--operation" id="swapBothBtn" >ss</button>
-			<button class="btn btn--operation" id="pushABtn" >pa</button>
-			<button class="btn btn--operation" id="pushBBtn" >pb</button>
-			<button class="btn btn--operation" id="rotateABtn" >ra</button>
-			<button class="btn btn--operation" id="rotateBBtn" >rb</button>
-			<button class="btn btn--operation" id="rotateBothBtn" >rr</button>
-			<button class="btn btn--operation" id="reverseRotateABtn" >rra</button>
-			<button class="btn btn--operation" id="reverseRotateBBtn" >rrb</button>
-			<button class="btn btn--operation" id="reverseRotateBothBtn" >rrr</button>
-		</div>
+			<div class="moves-info-wrapper">
+				<div class="moves-counter-wrapper">
+					<h2 class="overline">Moves</h2>
+					<p class="move-count">0</p>
+				</div>
+				<div class="seperator"></div>
+				<div class="moves-wrapper">
+				</div>
+			</div>
+			<div class="operation-wrapper">
+				<div class="operation-info-wrapper">
+					<img src="InfoIcon.svg" />
+					<p>Hover over an operation</p>
+				</div>
+				<div class="button-wrapper">
+					<button class="btn btn--operation" id="swapABtn" >sa</button>
+					<button class="btn btn--operation" id="swapBBtn" >sb</button>
+					<button class="btn btn--operation" id="swapBothBtn" >ss</button>
+					<button class="btn btn--operation" id="pushABtn" >pa</button>
+					<button class="btn btn--operation" id="pushBBtn" >pb</button>
+					<button class="btn btn--operation" id="rotateABtn" >ra</button>
+					<button class="btn btn--operation" id="rotateBBtn" >rb</button>
+					<button class="btn btn--operation" id="rotateBothBtn" >rr</button>
+					<button class="btn btn--operation" id="reverseRotateABtn" >rra</button>
+					<button class="btn btn--operation" id="reverseRotateBBtn" >rrb</button>
+					<button class="btn btn--operation" id="reverseRotateBothBtn" >rrr</button>
+				</div>
+			</div>
+		</main>
 	</body>
 	<script src="index.js"></script>
 </html>

@@ -15,8 +15,8 @@ class Stack {
 		this.render();
 	}
 
-	updateValues(newValues) {
-		this.values = newValues;
+	updateValues(newValues, append = false) {
+		append == false ? this.values = newValues : this.values = [...this.values, ...newValues];
 		this.render();
 	}
 
@@ -95,6 +95,11 @@ swapBBtn.addEventListener("click", () => {
 });
 
 swapBothBtn.addEventListener("click", () => {
+	if (stackB.values[0] === undefined) {
+		if (stackA.values[0] === undefined) return;
+		stackA.swap();
+		return;
+	}
 	stackA.swap(true);
 	stackB.swap();
 });
@@ -141,9 +146,34 @@ document.addEventListener("moveMade", () => {
 })
 
 const stackAValuesEl = document.querySelector("#stackAValues");
-const replaceStackAValuesEl = document.querySelector("#replaceStackAValues");
 
-replaceStackAValues.addEventListener("click", () => {
-	stackA.updateValues(stackAValuesEl.value.split(", "));
-});
+const addIcon = document.querySelector("#addIcon");
+const updateStackOverlay = document.querySelector(".update-stack-wrapper");
+function showUpdateStackOverlay() {
+	updateStackOverlay.style.display = "flex";	
+}
+function hideUpdateStackOverlay() {
+	updateStackOverlay.style.display = "none";	
+}
+addIcon.addEventListener("click", () => {
+	showUpdateStackOverlay();
+})
 
+const closeOverlayIcon = document.querySelector("#closeOverlayIcon");
+closeOverlayIcon.addEventListener("click", () => {
+	hideUpdateStackOverlay();
+})
+
+const valuesInput = document.querySelector("#valuesInput");
+const appendValuesCheckbox = document.querySelector("#appendValuesCheckbox");
+const stackSelect = document.querySelector("#stackSelect");
+const saveStackBtn = document.querySelector("#saveStackBtn");
+saveStackBtn.addEventListener("click", () => {
+	// Perform validation checks here
+	let valuesArr = valuesInput.value.split(", ");
+	let appendValuesChecked = appendValuesCheckbox.checked;
+	stackSelect.value == 'A' ? 
+		stackA.updateValues(valuesArr, appendValuesChecked) :
+		stackB.updateValues(valuesArr, appendValuesChecked);
+	hideUpdateStackOverlay();
+})
