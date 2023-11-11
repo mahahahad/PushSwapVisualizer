@@ -84,20 +84,28 @@ const reverseRotateABtn = document.querySelector("#reverseRotateABtn");
 const reverseRotateBBtn = document.querySelector("#reverseRotateBBtn");
 const reverseRotateBothBtn = document.querySelector("#reverseRotateBothBtn");
 
-const counterEl = document.querySelector(".moves");
+const counterEl = document.querySelector(".move-count");
+
+function displayMove(move) {
+	movesWrapper.innerHTML += `<p class="move">${move}</p>`;
+	counterEl.innerText = ++moves;
+}
 
 swapABtn.addEventListener("click", () => {
 	stackA.swap();
+	displayMove("sa");
 });
 
 swapBBtn.addEventListener("click", () => {
 	stackB.swap();
+	displayMove("sb");
 });
 
 swapBothBtn.addEventListener("click", () => {
 	if (stackB.values[0] === undefined) {
 		if (stackA.values[0] === undefined) return;
 		stackA.swap();
+		displayMove("ss");
 		return;
 	}
 	stackA.swap(true);
@@ -107,37 +115,45 @@ swapBothBtn.addEventListener("click", () => {
 pushABtn.addEventListener("click", () => {
 	stackB.push(stackA.values.shift());
 	stackA.render();
+	displayMove("pa");
 });
 
 pushBBtn.addEventListener("click", () => {
 	stackA.push(stackB.values.shift());
 	stackB.render();
+	displayMove("pb");
 });
 
 rotateABtn.addEventListener("click", () => {
 	stackA.rotate();
+	displayMove("ra");
 });
 
 rotateBBtn.addEventListener("click", () => {
 	stackB.rotate();
+	displayMove("rb");
 });
 
 rotateBothBtn.addEventListener("click", () => {
 	stackA.rotate(true);
 	stackB.rotate();
+	displayMove("rr");
 });
 
 reverseRotateABtn.addEventListener("click", () => {
 	stackA.reverseRotate();
+	displayMove("rra");
 });
 
 reverseRotateBBtn.addEventListener("click", () => {
 	stackB.reverseRotate();
+	displayMove("rrb");
 });
 
 reverseRotateBothBtn.addEventListener("click", () => {
 	stackA.reverseRotate(true);
 	stackB.reverseRotate();
+	displayMove("rrr");
 });
 
 
@@ -147,6 +163,7 @@ document.addEventListener("moveMade", () => {
 
 const stackAValuesEl = document.querySelector("#stackAValues");
 
+
 const addIcon = document.querySelector("#addIcon");
 const updateStackOverlay = document.querySelector(".update-stack-wrapper");
 function showUpdateStackOverlay() {
@@ -154,11 +171,11 @@ function showUpdateStackOverlay() {
 }
 function hideUpdateStackOverlay() {
 	updateStackOverlay.style.display = "none";	
+	valuesInput.value = "";
 }
 addIcon.addEventListener("click", () => {
 	showUpdateStackOverlay();
 })
-
 const closeOverlayIcon = document.querySelector("#closeOverlayIcon");
 closeOverlayIcon.addEventListener("click", () => {
 	hideUpdateStackOverlay();
@@ -168,12 +185,31 @@ const valuesInput = document.querySelector("#valuesInput");
 const appendValuesCheckbox = document.querySelector("#appendValuesCheckbox");
 const stackSelect = document.querySelector("#stackSelect");
 const saveStackBtn = document.querySelector("#saveStackBtn");
+const manualValueEntryWrapper = document.querySelector("#manualValueEntryWrapper");
+const generateValuesWrapper = document.querySelector("#generateValuesWrapper");
 saveStackBtn.addEventListener("click", () => {
-	// Perform validation checks here
-	let valuesArr = valuesInput.value.split(", ");
+	// Remove all whitespace characters from the valuesInput
+	valuesInput.value = valuesInput.value.replace(/\s+/g, '');
+	let valuesArr = valuesInput.value.split(",");
 	let appendValuesChecked = appendValuesCheckbox.checked;
+
+	// Check if the manual value entry section is selected and apply the relevant input checks
+	if (generateValuesWrapper.classList.contains("wrapper--unselected")) {
+		if (valuesInput.value.trim() == "") return;
+		valuesArr.forEach((value, index) => {
+			if (isNaN(parseInt(value))) {
+				alert("You entered wrong values");
+			}	  
+			valuesArr[index] = parseInt(value);
+		})
+	} else {
+		// Check generateValueWrapper here
+	}
 	stackSelect.value == 'A' ? 
 		stackA.updateValues(valuesArr, appendValuesChecked) :
 		stackB.updateValues(valuesArr, appendValuesChecked);
 	hideUpdateStackOverlay();
 })
+
+const movesWrapper = document.querySelector(".moves-wrapper");
+
