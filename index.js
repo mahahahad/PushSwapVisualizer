@@ -15,6 +15,11 @@ class Stack {
 		this.render();
 	}
 
+	reset() {
+		this.values = [];
+		this.render();
+	}
+
 	updateValues(newValues, append = false) {
 		append == false ? this.values = newValues : this.values = [...this.values, ...newValues];
 		this.render();
@@ -85,10 +90,11 @@ const reverseRotateBBtn = document.querySelector("#reverseRotateBBtn");
 const reverseRotateBothBtn = document.querySelector("#reverseRotateBothBtn");
 
 const counterEl = document.querySelector(".move-count");
+const movesWrapper = document.querySelector(".moves-wrapper");
 
 function displayMove(move) {
 	movesWrapper.innerHTML += `<p class="move">${move}</p>`;
-	counterEl.innerText = ++moves;
+	// counterEl.innerText = ++moves;
 }
 
 swapABtn.addEventListener("click", () => {
@@ -163,7 +169,6 @@ document.addEventListener("moveMade", () => {
 
 const stackAValuesEl = document.querySelector("#stackAValues");
 
-
 const addIcon = document.querySelector("#addIcon");
 const updateStackOverlay = document.querySelector(".update-stack-wrapper");
 function showUpdateStackOverlay() {
@@ -211,5 +216,12 @@ saveStackBtn.addEventListener("click", () => {
 	hideUpdateStackOverlay();
 })
 
-const movesWrapper = document.querySelector(".moves-wrapper");
+const resetBtn = document.querySelector("#resetBtn");
+resetBtn.onclick = () => {
+	stackA.reset();
+	stackB.reset();
+	moves = 0;
+	counterEl.innerText = 0;
+	movesWrapper.innerText = "";
+}
 
